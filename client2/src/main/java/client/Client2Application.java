@@ -7,6 +7,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 /**
  * @author guoyu.huang
  * @version 1.0.0
@@ -23,6 +25,7 @@ public class Client2Application {
 
     @Bean
     public Retryer retryer(){
-        return new Retryer.Default();
+        // 默认构造函数效果如下，重试间隔100毫秒，最大重试时间1秒，重试次数5次
+        return new Retryer.Default(100, SECONDS.toMillis(1), 5);
     }
 }
