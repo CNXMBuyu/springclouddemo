@@ -1,8 +1,11 @@
 package client;
 
+import feign.Retryer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author guoyu.huang
@@ -10,9 +13,16 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @EnableEurekaClient
 @SpringBootApplication
+@EnableFeignClients
 public class Client2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Client2Application.class);
+    }
+
+
+    @Bean
+    public Retryer retryer(){
+        return new Retryer.Default();
     }
 }
