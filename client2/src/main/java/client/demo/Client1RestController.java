@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
+
 /**
  * @author guoyu.huang
  * @version 1.0.0
@@ -20,10 +22,14 @@ public class Client1RestController {
     @Autowired
     private APIRestController apiRestController;
 
-
     @GetMapping(value = "/hi")
     public String hi() {
-        return "hello, " + port;
+        int i = new Random().nextInt(10);
+        if(i % 2 == 0){
+            throw new RuntimeException("");
+        }else{
+            return "hello, " + port;
+        }
     }
 
     @GetMapping(value = "/run")
