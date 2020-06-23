@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
+
 /**
  * @author guoyu.huang
  * @version 1.0.0
@@ -22,15 +24,20 @@ public class Client1RestController {
     private RestTemplate restTemplate;
 
     @GetMapping(value = "/hi")
+    @HystrixCommand(fallbackMethod = "error")
     public String hi() {
-        return "hello, " + port;
+        int i = new Random().nextInt(10);
+        if(i % 2 == 0){
+            throw new RuntimeException("");
+        }else{
+            return "hello, " + port;
+        }
     }
 
     @GetMapping(value = "/run")
-    @HystrixCommand(fallbackMethod = "error")
+
     public String run() {
-        throw new RuntimeException("");
-//        return restTemplate.getForObject("http://client/hi", String.class);
+        return restTemplate.getForObject("http://client/hi", String.class);
     }
 
     public String error(){
