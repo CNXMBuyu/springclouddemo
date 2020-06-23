@@ -1,5 +1,6 @@
 package cn.hgy.client.demo;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,13 @@ public class Client1RestController {
     }
 
     @GetMapping(value = "/run")
+    @HystrixCommand(fallbackMethod = "error")
     public String run() {
-        return restTemplate.getForObject("http://client/hi", String.class);
+        throw new RuntimeException("");
+//        return restTemplate.getForObject("http://client/hi", String.class);
+    }
+
+    public String error(){
+        return "error";
     }
 }
