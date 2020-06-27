@@ -1,11 +1,10 @@
-package client.demo;
+package cn.hgy.client2.demo;
 
-import client.api.APIRestController;
+import cn.hgy.client2.api.APIRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
 
@@ -19,6 +18,9 @@ public class Client1RestController {
     @Value("${server.port}")
     private String port;
 
+    @Value("${key}")
+    private String key;
+
     @Autowired
     private APIRestController apiRestController;
 
@@ -28,7 +30,7 @@ public class Client1RestController {
         if(i % 2 == 0){
             throw new RuntimeException("");
         }else{
-            return "hello, " + port;
+            return "hello, " + port + " & remote_config" + key;
         }
     }
 

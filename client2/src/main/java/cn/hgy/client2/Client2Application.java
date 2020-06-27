@@ -1,4 +1,4 @@
-package client;
+package cn.hgy.client2;
 
 import feign.Retryer;
 import org.springframework.boot.SpringApplication;

@@ -13,6 +13,8 @@
         <module>server2</module>
         <module>client1</module>
         <module>client2</module>
+        <module>zuul</module>
+        <module>config</module>
     </modules>
 
     <!-- Inherit defaults from Spring Boot -->
