@@ -15,6 +15,7 @@
         <module>client2</module>
         <module>zuul</module>
         <module>config</module>
+        <module>sleuth</module>
     </modules>
 
     <!-- Inherit defaults from Spring Boot -->
