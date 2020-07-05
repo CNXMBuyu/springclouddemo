@@ -1,5 +1,6 @@
 package cn.hgy.consumer.controller;
 
+import cn.hgy.consumer.api.ProviderAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -16,13 +17,17 @@ import org.springframework.web.client.RestTemplate;
 public class DemoRestController {
 
     @Autowired
-    private LoadBalancerClient loadBalancerClient;
-    @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private ProviderAPI providerAPI;
 
-    @GetMapping("/invoke")
-    public String invoke() {
-        ServiceInstance serviceInstance = loadBalancerClient.choose("provider");
-        return restTemplate.getForObject("http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/hi/consumer", String.class);
+    @GetMapping("/invoke/{text}")
+    public String invoke(@PathVariable(value = "text") String text) {
+        return restTemplate.getForObject("http://provider/hi/" + text, String.class);
+    }
+
+    @GetMapping("/invoke/remote")
+    public String invoke2() {
+        return providerAPI.hi();
     }
 }
